@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Lar | Adoção Responsável & Petshop em Birigui - SP</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            teal: '#0d9488',
+                            tealDark: '#0f766e',
+                            tealLight: '#ccfbf1',
+                            amber: '#f59e0b',
+                            amberLight: '#fef3c7',
+                            cream: '#fafaf9'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fafaf9;
+            color: #1e293b;
+        }
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .navbar-glass {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(13, 148, 136, 0.12);
+        }
+        .pet-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .pet-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(13, 148, 136, 0.12), 0 8px 10px -6px rgba(13, 148, 136, 0.08);
+        }
+        .pet-img-wrapper img {
+            transition: transform 0.5s ease;
+        }
+        .pet-card:hover .pet-img-wrapper img {
+            transform: scale(1.06);
+        }
+        .service-card {
+            transition: all 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #0d9488;
+        }
+        .filter-btn.active {
+            background-color: #0d9488;
+            color: #ffffff;
+            box-shadow: 0 4px 14px 0 rgba(13, 148, 136, 0.35);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-teal-100 selection:text-teal-900">
+
+    <!-- ==================== 1. NAVBAR FIXA E RESPONSIVA ==================== -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-glass py-3 z-50">
+        <div class="container">
+            <!-- Logo / Nome -->
+            <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" href="#home">
+                <div class="w-10 h-10 rounded-2xl bg-teal-600 text-white flex items-center justify-center shadow-md">
+                    <i class="bi bi-heart-pulse-fill text-xl"></i>
+                </div>
+                <div class="leading-tight">
+                    <span class="font-display font-extrabold text-xl text-slate-900 tracking-tight block">Pet <span class="text-teal-600">Lar</span></span>
+                    <span class="text-[11px] font-medium text-amber-600 uppercase tracking-wider block">Birigui • SP</span>
+                </div>
+            </a>
+
+            <!-- Botão Mobile -->
+            <button class="navbar-toggler border-0 shadow-none p-2 rounded-xl bg-teal-50 text-teal-700" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPetLar" aria-controls="navbarPetLar" aria-expanded="false" aria-label="Alternar navegação">
+                <i class="bi bi-list text-2xl"></i>
+            </button>
+
+            <!-- Links de Navegação -->
+            <div class="collapse navbar-collapse" id="navbarPetLar">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-4 mt-3 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link font-medium text-slate-700 hover:text-teal-600 transition px-2" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link font-medium text-slate-700 hover:text-teal-600 transition px-2" href="#adocao">Adoção</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link font-medium text-slate-700 hover:text-teal-600 transition px-2" href="#servicos">Serviços</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link font-medium text-slate-700 hover:text-teal-600 transition px-2" href="#contato">Contato</a>
+                    </li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <button onclick="abrirModalAgendamento('Consulta / Banho')" class="w-full lg:w-auto bg-amber-500 hover:bg-amber-600 text-white font-semibold px-5 py-2.5 rounded-full shadow-sm hover:shadow transition flex items-center justify-center gap-2 text-sm">
+                            <i class="bi bi-calendar-check"></i> Agendar Horário
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== 2. SEÇÃO HOME (HERO) ==================== -->
+    <section id="home" class="pt-28 pb-16 md:pt-36 md:pb-24 bg-gradient-to-br from-teal-50/80 via-white to-amber-50/60 overflow-hidden">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <!-- Texto Principal -->
+                <div class="col-lg-6">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-100/80 text-teal-800 text-xs font-semibold mb-4 border border-teal-200">
+                        <span class="w-2 h-2 rounded-full bg-teal-600 animate-pulse"></span>
+                        Centro de Adoção & Petshop em Birigui - SP
+                    </div>
+                    
+                    <h1 class="font-display text-4xl sm:text-5xl lg:text-[3.25rem] font-extrabold text-slate-900 leading-[1.15] mb-4">
+                        Transforme uma vida. <span class="text-teal-600">Adote amor</span> e cuide com carinho.
+                    </h1>
+                    
+                    <p class="text-slate-600 text-base sm:text-lg leading-relaxed mb-6">
+                        Na <strong>Pet Lar</strong>, unimos famílias de Birigui a cães e gatos resgatados prontos para um novo começo, além de oferecer estrutura completa de banho, tosa, clínica veterinária e nutrição.
+                    </p>
+
+                    <!-- Botões de Ação -->
+                    <div class="flex flex-col sm:flex-row gap-3 mb-8">
+                        <a href="#adocao" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-7 py-3.5 rounded-2xl shadow-lg shadow-teal-600/20 transition flex items-center justify-center gap-2 text-center">
+                            <i class="bi bi-heart-fill text-amber-300"></i> Ver Pets para Adoção
+                        </a>
+                        <a href="#servicos" class="bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 font-semibold px-7 py-3.5 rounded-2xl shadow-sm transition flex items-center justify-center gap-2 text-center">
+                            <i class="bi bi-scissors text-teal-600"></i> Conhecer Serviços
+                        </a>
+                    </div>
+
+                    <!-- Estatísticas Rápidas -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200/80">
+                        <div>
+                            <p class="font-display text-2xl sm:text-3xl font-extrabold text-teal-700 mb-0">+420</p>
+                            <p class="text-xs sm:text-sm text-slate-500 mb-0">Pets adotados em Birigui</p>
+                        </div>
+                        <div>
+                            <p class="font-display text-2xl sm:text-3xl font-extrabold text-amber-500 mb-0">100%</p>
+                            <p class="text-xs sm:text-sm text-slate-500 mb-0">Vacinados e vermifugados</p>
+                        </div>
+                        <div>
+                            <p class="font-display text-2xl sm:text-3xl font-extrabold text-teal-700 mb-0">4.9 ★</p>
+                            <p class="text-xs sm:text-sm text-slate-500 mb-0">Avaliação dos tutores</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Imagem Destaque -->
+                <div class="col-lg-6">
+                    <div class="relative mx-auto max-w-lg lg:max-w-none">
+                        <div class="absolute -inset-3 bg-gradient-to-tr from-teal-400/20 to-amber-300/25 rounded-[2.5rem] blur-xl"></div>
+                        <div class="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white bg-slate-100 aspect-[4/3]">
+                            <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1000&q=80" 
+                                 onerror="this.src='https://placehold.co/800x600/0d9488/ffffff?text=Pet+Lar+Birigui'"
+                                 alt="Cachorros felizes correndo juntos na Pet Lar" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                        
+                        <!-- Card Flutuante -->
+                        <div class="absolute -bottom-5 left-4 sm:left-6 bg-white p-3.5 sm:p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3 max-w-xs">
+                            <div class="w-11 h-11 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
+                                <i class="bi bi-shield-check text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="font-display font-bold text-slate-900 text-sm mb-0.5">Adoção Assistida</p>
+                                <p class="text-xs text-slate-500 mb-0">1ª consulta veterinária gratuita para adotantes!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 3. SEÇÃO ADOÇÃO (MÍNIMO 6 PETS) ==================== -->
+    <section id="adocao" class="py-16 md:py-24 bg-white">
+        <div class="container">
+            <!-- Cabeçalho da Seção -->
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-teal-600 font-semibold text-sm uppercase tracking-wider">Encontre seu melhor amigo</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1 mb-3">
+                    Pets Esperando por um Lar
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base">
+                    Todos os nossos animais passam por avaliação clínica, estão vermifugados, vacinados e prontos para receber muito amor em Birigui e região.
+                </p>
+            </div>
+
+            <!-- Filtros por Espécie -->
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10" role="group" aria-label="Filtrar pets por espécie">
+                <button type="button" onclick="filtrarPets('todos', this)" class="filter-btn active px-5 py-2.5 rounded-full text-sm font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:border-teal-500 transition flex items-center gap-2">
+                    <i class="bi bi-grid-fill"></i> Todos (<span id="count-todos">6</span>)
+                </button>
+                <button type="button" onclick="filtrarPets('cao', this)" class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:border-teal-500 transition flex items-center gap-2">
+                    🐶 Cães (<span id="count-cao">4</span>)
+                </button>
+                <button type="button" onclick="filtrarPets('gato', this)" class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:border-teal-500 transition flex items-center gap-2">
+                    🐱 Gatos (<span id="count-gato">2</span>)
+                </button>
+            </div>
+
+            <!-- Grade Responsiva de Cards de Adoção (6+ Pets) -->
+            <div id="grid-pets" class="row g-4">
+                <!-- Os cards serão renderizados dinamicamente via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 4. SEÇÃO SERVIÇOS (MÍNIMO 3 SERVIÇOS) ==================== -->
+    <section id="servicos" class="py-16 md:py-24 bg-slate-50 border-t border-slate-100">
+        <div class="container">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-amber-600 font-semibold text-sm uppercase tracking-wider">Cuidado Completo em Birigui</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1 mb-3">
+                    Nossos Serviços Petshop & Clínica
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base">
+                    Estrutura moderna, produtos hipoalergênicos e profissionais apaixonados pelo bem-estar animal. Parte da renda ajuda a manter nossos resgatados!
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Serviço 1: Banho & Tosa -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card bg-white rounded-3xl p-6 h-100 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center text-2xl mb-5">
+                                <i class="bi bi-droplet-fill"></i>
+                            </div>
+                            <h3 class="font-display text-xl font-bold text-slate-900 mb-2">Banho & Tosa</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                Estética, hidratação de pelagem, corte de unhas e tosa higiênica ou na tesoura com água aquecida e zero estresse.
+                            </p>
+                            <ul class="text-xs text-slate-500 space-y-1.5 mb-6 ps-0 list-none">
+                                <li><i class="bi bi-check-circle-fill text-teal-600 me-1.5"></i>Shampoos hipoalergênicos</li>
+                                <li><i class="bi bi-check-circle-fill text-teal-600 me-1.5"></i>Secagem silenciosa</li>
+                                <li><i class="bi bi-check-circle-fill text-teal-600 me-1.5"></i>Táxi Dog em Birigui</li>
+                            </ul>
+                        </div>
+                        <button onclick="abrirModalAgendamento('Banho & Tosa')" class="w-full py-2.5 px-4 rounded-xl bg-teal-50 hover:bg-teal-600 text-teal-700 hover:text-white font-semibold text-sm transition flex items-center justify-center gap-2">
+                            Agendar Banho <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Serviço 2: Clínica Veterinária & Vacinação -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card bg-white rounded-3xl p-6 h-100 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl mb-5">
+                                <i class="bi bi-heart-pulse-fill"></i>
+                            </div>
+                            <h3 class="font-display text-xl font-bold text-slate-900 mb-2">Clínica & Vacinas</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                Consultas de rotina, check-up preventivo, exames laboratoriais, microchipagem e protocolo completo de vacinação importada.
+                            </p>
+                            <ul class="text-xs text-slate-500 space-y-1.5 mb-6 ps-0 list-none">
+                                <li><i class="bi bi-check-circle-fill text-amber-500 me-1.5"></i>Vacinas V8/V10, Antirrábica e V4</li>
+                                <li><i class="bi bi-check-circle-fill text-amber-500 me-1.5"></i>Acompanhamento geriátrico</li>
+                                <li><i class="bi bi-check-circle-fill text-amber-500 me-1.5"></i>Castração segura</li>
+                            </ul>
+                        </div>
+                        <button onclick="abrirModalAgendamento('Clínica Veterinária & Vacinação')" class="w-full py-2.5 px-4 rounded-xl bg-amber-50 hover:bg-amber-500 text-amber-700 hover:text-white font-semibold text-sm transition flex items-center justify-center gap-2">
+                            Marcar Consulta <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Serviço 3: Pet Shop & Nutrição -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card bg-white rounded-3xl p-6 h-100 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl mb-5">
+                                <i class="bi bi-bag-heart-fill"></i>
+                            </div>
+                            <h3 class="font-display text-xl font-bold text-slate-900 mb-2">Pet Shop & Nutrição</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                Linha completa de rações Super Premium, petiscos naturais, caminhas ortopédicas, coleiras seguras e brinquedos interativos.
+                            </p>
+                            <ul class="text-xs text-slate-500 space-y-1.5 mb-6 ps-0 list-none">
+                                <li><i class="bi bi-check-circle-fill text-emerald-600 me-1.5"></i>Entrega rápida em Birigui</li>
+                                <li><i class="bi bi-check-circle-fill text-emerald-600 me-1.5"></i>Consultoria nutricional</li>
+                                <li><i class="bi bi-check-circle-fill text-emerald-600 me-1.5"></i>Desconto para adotantes</li>
+                            </ul>
+                        </div>
+                        <button onclick="abrirModalAgendamento('Pedido Pet Shop / Delivery')" class="w-full py-2.5 px-4 rounded-xl bg-emerald-50 hover:bg-emerald-600 text-emerald-700 hover:text-white font-semibold text-sm transition flex items-center justify-center gap-2">
+                            Pedir Delivery <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Serviço 4: Creche & Day Care -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card bg-white rounded-3xl p-6 h-100 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center text-2xl mb-5">
+                                <i class="bi bi-sun-fill"></i>
+                            </div>
+                            <h3 class="font-display text-xl font-bold text-slate-900 mb-2">Day Care & Creche</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                Socialização supervisionada, atividades de enriquecimento ambiental e gasto de energia para seu pet enquanto você trabalha.
+                            </p>
+                            <ul class="text-xs text-slate-500 space-y-1.5 mb-6 ps-0 list-none">
+                                <li><i class="bi bi-check-circle-fill text-sky-600 me-1.5"></i>Monitores treinados</li>
+                                <li><i class="bi bi-check-circle-fill text-sky-600 me-1.5"></i>Área gramada e coberta</li>
+                                <li><i class="bi bi-check-circle-fill text-sky-600 me-1.5"></i>Fotos e vídeos no WhatsApp</li>
+                            </ul>
+                        </div>
+                        <button onclick="abrirModalAgendamento('Day Care / Creche Pet')" class="w-full py-2.5 px-4 rounded-xl bg-sky-50 hover:bg-sky-600 text-sky-700 hover:text-white font-semibold text-sm transition flex items-center justify-center gap-2">
+                            Agendar Avaliação <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 5. FOOTER (RODAPÉ) ==================== -->
+    <footer id="contato" class="bg-slate-900 text-slate-300 pt-16 pb-8">
+        <div class="container">
+            <div class="row g-5 pb-12 border-b border-slate-800">
+                <!-- Coluna 1: Sobre a Pet Lar -->
+                <div class="col-lg-4">
+                    <div class="d-flex align-items-center gap-2 mb-4">
+                        <div class="w-10 h-10 rounded-2xl bg-teal-600 text-white flex items-center justify-center">
+                            <i class="bi bi-heart-pulse-fill text-xl"></i>
+                        </div>
+                        <div>
+                            <span class="font-display font-extrabold text-xl text-white block leading-none">Pet <span class="text-teal-400">Lar</span></span>
+                            <span class="text-[11px] text-amber-400 uppercase tracking-wider">Birigui • São Paulo</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Dedicados ao resgate, adoção responsável e cuidado integral de cães e gatos na Pérola Paulista. Cada serviço contratado ajuda a manter nosso abrigo sempre cheio de amor e ração.
+                    </p>
+                    <div class="flex gap-3">
+                        <a href="#contato" aria-label="Instagram Pet Lar" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-teal-600 text-white flex items-center justify-center transition">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#contato" aria-label="Facebook Pet Lar" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-teal-600 text-white flex items-center justify-center transition">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#contato" aria-label="WhatsApp Pet Lar" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-emerald-600 text-white flex items-center justify-center transition">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Coluna 2: Links Rápidos -->
+                <div class="col-sm-6 col-lg-2">
+                    <h4 class="font-display text-white font-bold text-base mb-4">Navegação</h4>
+                    <ul class="list-none ps-0 space-y-2.5 text-sm">
+                        <li><a href="#home" class="text-slate-400 hover:text-teal-400 text-decoration-none transition">Início</a></li>
+                        <li><a href="#adocao" class="text-slate-400 hover:text-teal-400 text-decoration-none transition">Adotar um Pet</a></li>
+                        <li><a href="#servicos" class="text-slate-400 hover:text-teal-400 text-decoration-none transition">Banho & Tosa</a></li>
+                        <li><a href="#servicos" class="text-slate-400 hover:text-teal-400 text-decoration-none transition">Clínica Veterinária</a></li>
+                        <li><a href="#servicos" class="text-slate-400 hover:text-teal-400 text-decoration-none transition">Pet Shop Delivery</a></li>
+                    </ul>
+                </div>
+
+                <!-- Coluna 3: Horários -->
+                <div class="col-sm-6 col-lg-3">
+                    <h4 class="font-display text-white font-bold text-base mb-4">Horário de Funcionamento</h4>
+                    <ul class="list-none ps-0 space-y-2.5 text-sm text-slate-400">
+                        <li class="flex justify-between">
+                            <span>Segunda a Sexta:</span>
+                            <span class="text-white font-medium">08h00 às 19h00</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Sábados (Feira Adoção):</span>
+                            <span class="text-white font-medium">08h30 às 16h00</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Domingos e Feriados:</span>
+                            <span class="text-amber-400 font-medium">Plantão Vet 09h-13h</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Coluna 4: Endereço em Birigui -->
+                <div class="col-lg-3">
+                    <h4 class="font-display text-white font-bold text-base mb-4">Onde Estamos</h4>
+                    <ul class="list-none ps-0 space-y-3 text-sm text-slate-400">
+                        <li class="flex items-start gap-2.5">
+                            <i class="bi bi-geo-alt-fill text-teal-400 mt-0.5"></i>
+                            <span>Av. Governador Pedro de Toledo, 1450 - Centro, Birigui - SP, CEP 16200-027</span>
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <i class="bi bi-whatsapp text-emerald-400"></i>
+                            <span>(18) 99742-8810</span>
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <i class="bi bi-telephone-fill text-teal-400"></i>
+                            <span>(18) 3642-5590</span>
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <i class="bi bi-envelope-fill text-amber-400"></i>
+                            <span>contato@petlarbirigui.com.br</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-slate-500">
+                <p class="mb-0">&copy; 2026 Pet Lar Birigui - SP. Todos os direitos reservados.</p>
+                <p class="mb-0">Feito com <i class="bi bi-heart-fill text-rose-500"></i> para os animais de Birigui.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== MODAL INTERATIVO DE ADOÇÃO ==================== -->
+    <div class="modal fade" id="modalAdocao" tabindex="-1" aria-labelledby="modalAdocaoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow-2xl overflow-hidden">
+                <div class="modal-header bg-teal-600 text-white border-0 px-4 py-3">
+                    <h5 class="modal-title font-display font-bold flex items-center gap-2" id="modalAdocaoLabel">
+                        <i class="bi bi-heart-fill text-amber-300"></i> Formulário de Adoção Responsável
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                
+                <div class="modal-body p-4">
+                    <!-- Formulário -->
+                    <form id="form-adocao" onsubmit="enviarInteresseAdocao(event)">
+                        <div class="bg-teal-50 border border-teal-100 rounded-2xl p-3 mb-4 flex items-center gap-3">
+                            <img id="modal-pet-img" src="" alt="Pet selecionado" class="w-14 h-14 rounded-xl object-cover">
+                            <div>
+                                <span class="text-xs text-teal-700 font-semibold uppercase block">Você escolheu adotar:</span>
+                                <strong id="modal-pet-nome" class="font-display text-lg text-slate-900">Nome do Pet</strong>
+                                <span id="modal-pet-detalhe" class="text-xs text-slate-500 block">Detalhes</span>
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="input-pet-nome">
+
+                        <div class="mb-3">
+                            <label for="adotante-nome" class="form-label text-xs font-semibold text-slate-700">Seu Nome Completo *</label>
+                            <input type="text" class="form-control rounded-xl py-2.5 text-sm" id="adotante-nome" placeholder="Ex: Mariana Oliveira" required>
+                        </div>
+
+                        <div class="row g-2 mb-3">
+                            <div class="col-sm-6">
+                                <label for="adotante-whats" class="form-label text-xs font-semibold text-slate-700">WhatsApp (Birigui/Região) *</label>
+                                <input type="tel" class="form-control rounded-xl py-2.5 text-sm" id="adotante-whats" placeholder="(18) 99999-9999" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="adotante-moradia" class="form-label text-xs font-semibold text-slate-700">Tipo de Moradia *</label>
+                                <select class="form-select rounded-xl py-2.5 text-sm" id="adotante-moradia" required>
+                                    <option value="Casa com quintal murado">Casa com quintal murado</option>
+                                    <option value="Apartamento telado">Apartamento telado</option>
+                                    <option value="Chácara / Sítio">Chácara / Sítio</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="adotante-msg" class="form-label text-xs font-semibold text-slate-700">Conte um pouco sobre sua rotina</label>
+                            <textarea class="form-control rounded-xl text-sm" id="adotante-msg" rows="2" placeholder="Já possui outros pets em casa?"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                            <i class="bi bi-send-fill"></i> Enviar Pedido de Adoção
+                        </button>
+                    </form>
+
+                    <!-- Confirmação Visual (Oculta inicialmente) -->
+                    <div id="confirmacao-adocao" class="hidden text-center py-4">
+                        <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl mx-auto mb-3">
+                            <i class="bi bi-check-lg"></i>
+                        </div>
+                        <h4 class="font-display font-bold text-slate-900 text-xl mb-2">Solicitação Enviada!</h4>
+                        <p id="texto-confirmacao-adocao" class="text-sm text-slate-600 mb-4"></p>
+                        <button type="button" class="btn btn-outline-secondary rounded-xl px-4 py-2 text-sm" data-bs-dismiss="modal">Fechar Janela</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL DE AGENDAMENTO DE SERVIÇOS ==================== -->
+    <div class="modal fade" id="modalServico" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow-2xl overflow-hidden">
+                <div class="modal-header bg-amber-500 text-white border-0 px-4 py-3">
+                    <h5 class="modal-title font-display font-bold flex items-center gap-2">
+                        <i class="bi bi-calendar2-check-fill"></i> Agendar na Pet Lar Birigui
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="form-servico" onsubmit="enviarAgendamentoServico(event)">
+                        <div class="mb-3">
+                            <label class="form-label text-xs font-semibold text-slate-700">Serviço Desejado</label>
+                            <input type="text" id="servico-selecionado" class="form-control rounded-xl bg-amber-50/60 font-semibold text-slate-800 text-sm" readonly>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label text-xs font-semibold text-slate-700">Nome do Tutor *</label>
+                                <input type="text" id="tutor-nome" class="form-control rounded-xl text-sm" placeholder="Seu nome" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label text-xs font-semibold text-slate-700">Nome do Pet *</label>
+                                <input type="text" id="pet-cliente-nome" class="form-control rounded-xl text-sm" placeholder="Ex: Rex" required>
+                            </div>
+                        </div>
+                        <div class="row g-2 mb-4">
+                            <div class="col-sm-6">
+                                <label class="form-label text-xs font-semibold text-slate-700">WhatsApp *</label>
+                                <input type="tel" id="tutor-whats" class="form-control rounded-xl text-sm" placeholder="(18) 99999-9999" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label text-xs font-semibold text-slate-700">Preferência de Dia *</label>
+                                <input type="date" id="servico-data" class="form-control rounded-xl text-sm" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 rounded-xl shadow-md transition">
+                            Confirmar Pré-Agendamento
+                        </button>
+                    </form>
+
+                    <div id="confirmacao-servico" class="hidden text-center py-4">
+                        <div class="w-16 h-16 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center text-3xl mx-auto mb-3">
+                            <i class="bi bi-calendar-check"></i>
+                        </div>
+                        <h4 class="font-display font-bold text-slate-900 text-xl mb-2">Pré-Agendamento Registrado!</h4>
+                        <p id="texto-confirmacao-servico" class="text-sm text-slate-600 mb-4"></p>
+                        <button type="button" class="btn btn-outline-secondary rounded-xl px-4 py-2 text-sm" data-bs-dismiss="modal">Concluir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lógica JavaScript Pura -->
+    <script>
+        // Base de dados dos pets disponíveis para adoção em Birigui - SP (mínimo 6)
+        const petsAdocao = [
+            {
+                id: 1,
+                nome: "Paçoca",
+                especie: "cao",
+                especieLabel: "Cão",
+                idade: "1 ano e 4 meses",
+                porte: "Porte Médio",
+                sexo: "Macho",
+                temperamento: "Brincalhão, dócil e adora crianças",
+                status: ["Vacinado", "Castrado"],
+                imagem: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
+                descricao: "Resgatado no bairro Silvares, o Paçoca é puro carinho e ama passear no parque."
+            },
+            {
+                id: 2,
+                nome: "Luna",
+                especie: "gato",
+                especieLabel: "Gato",
+                idade: "8 meses",
+                porte: "Porte Pequeno",
+                sexo: "Fêmea",
+                temperamento: "Carinhosa, tranquila e ronronadeira",
+                status: ["Vacinada", "Castrada", "FIV/FeLV Neg."],
+                imagem: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80",
+                descricao: "Luna adora tirar cochilos ao sol e se adapta muito bem a apartamentos telados."
+            },
+            {
+                id: 3,
+                nome: "Thor",
+                especie: "cao",
+                especieLabel: "Cão",
+                idade: "2 anos",
+                porte: "Porte Grande",
+                sexo: "Macho",
+                temperamento: "Leal, protetor e muito obediente",
+                status: ["Vacinado", "Castrado"],
+                imagem: "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=800&q=80",
+                descricao: "Companheiro fiel para caminhadas e famílias que buscam um amigo companheiro."
+            },
+            {
+                id: 4,
+                nome: "Amora",
+                especie: "cao",
+                especieLabel: "Cão",
+                idade: "6 meses",
+                porte: "Porte Pequeno",
+                sexo: "Fêmea",
+                temperamento: "Alegre, curiosa e sociável com outros pets",
+                status: ["Vacinada", "Vermifugada"],
+                imagem: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=800&q=80",
+                descricao: "Filhotinha cheia de energia que já aprendeu a fazer necessidades no tapetinho."
+            },
+            {
+                id: 5,
+                nome: "Simba",
+                especie: "gato",
+                especieLabel: "Gato",
+                idade: "1 ano e 2 meses",
+                porte: "Porte Médio",
+                sexo: "Macho",
+                temperamento: "Curioso, brincalhão e muito limpinho",
+                status: ["Vacinado", "Castrado", "FIV/FeLV Neg."],
+                imagem: "https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=800&q=80",
+                descricao: "Simba ama bolinhas de papel e receber cafuné atrás das orelhas."
+            },
+            {
+                id: 6,
+                nome: "Mel",
+                especie: "cao",
+                especieLabel: "Cão",
+                idade: "3 anos",
+                porte: "Porte Médio",
+                sexo: "Fêmea",
+                temperamento: "Calma, companheira e super educada",
+                status: ["Vacinada", "Castrada"],
+                imagem: "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=800&q=80",
+                descricao: "Ideal para quem procura uma cachorrinha serena para fazer companhia dentro de casa."
+            }
+        ];
+
+        let modalAdocaoInstance = null;
+        let modalServicoInstance = null;
+
+        // Renderiza os cards de pets no grid
+        function renderizarPets(filtro = 'todos') {
+            const grid = document.getElementById('grid-pets');
+            if (!grid) return;
+
+            const listaFiltrada = filtro === 'todos' 
+                ? petsAdocao 
+                : petsAdocao.filter(pet => pet.especie === filtro);
+
+            grid.innerHTML = listaFiltrada.map(pet => `
+                <div class="col-sm-6 col-lg-4">
+                    <article class="pet-card bg-white rounded-3xl border border-slate-200/90 overflow-hidden h-100 flex flex-col justify-between shadow-sm">
+                        <div>
+                            <!-- Foto do Pet -->
+                            <div class="pet-img-wrapper relative h-60 overflow-hidden bg-slate-100">
+                                <img src="${pet.imagem}" 
+                                     onerror="this.src='https://placehold.co/600x450/0d9488/ffffff?text=${encodeURIComponent(pet.nome)}'"
+                                     alt="${pet.nome} - ${pet.especieLabel} para adoção" 
+                                     class="w-full h-full object-cover">
+                                
+                                <!-- Badges Superiores -->
+                                <div class="absolute top-3 left-3 flex gap-1.5">
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-white/95 text-slate-800 shadow-sm">
+                                        ${pet.especie === 'cao' ? '🐶' : '🐱'} ${pet.especieLabel}
+                                    </span>
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold ${pet.sexo === 'Macho' ? 'bg-sky-600 text-white' : 'bg-rose-500 text-white'} shadow-sm">
+                                        ${pet.sexo}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Informações do Pet -->
+                            <div class="p-5 pb-3">
+                                <div class="flex justify-between items-start mb-1">
+                                    <h3 class="font-display text-2xl font-extrabold text-slate-900 mb-0">${pet.nome}</h3>
+                                    <span class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-amber-50 text-amber-700 border border-amber-200/60">
+                                        ${pet.porte}
+                                    </span>
+                                </div>
+                                
+                                <p class="text-xs text-teal-700 font-semibold mb-3">
+                                    <i class="bi bi-clock me-1"></i> ${pet.idade}
+                                </p>
+
+                                <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                                    ${pet.descricao}
+                                </p>
+
+                                <p class="text-xs text-slate-500 mb-3">
+                                    <strong class="text-slate-700">Temperamento:</strong> ${pet.temperamento}
+                                </p>
+
+                                <!-- Tags de Saúde -->
+                                <div class="flex flex-wrap gap-1.5 mb-2">
+                                    ${pet.status.map(tag => `
+                                        <span class="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-md bg-teal-50 text-teal-700">
+                                            <i class="bi bi-patch-check-fill"></i> ${tag}
+                                        </span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botão Quero Adotar -->
+                        <div class="p-5 pt-2">
+                            <button onclick="abrirModalAdocao(${pet.id})" class="w-full bg-teal-600 hover:bg-teal-700 active:scale-[0.99] text-white font-semibold py-3 px-4 rounded-2xl shadow-sm transition flex items-center justify-center gap-2">
+                                <i class="bi bi-heart-fill text-amber-300"></i> Quero Adotar ${pet.nome}
+                            </button>
+                        </div>
+                    </article>
+                </div>
+            `).join('');
+        }
+
+        // Controla os botões de filtro
+        function filtrarPets(especie, btnElement) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
+            renderizarPets(especie);
+        }
+
+        // Abre o modal de adoção preenchido com os dados do pet escolhido
+        function abrirModalAdocao(petId) {
+            const pet = petsAdocao.find(p => p.id === petId);
+            if (!pet) return;
+
+            document.getElementById('form-adocao').classList.remove('hidden');
+            document.getElementById('confirmacao-adocao').classList.add('hidden');
+            document.getElementById('form-adocao').reset();
+
+            document.getElementById('modal-pet-nome').textContent = pet.nome;
+            document.getElementById('modal-pet-detalhe').textContent = `${pet.especieLabel} • ${pet.idade} • ${pet.porte}`;
+            document.getElementById('modal-pet-img').src = pet.imagem;
+            document.getElementById('input-pet-nome').value = pet.nome;
+
+            if (!modalAdocaoInstance) {
+                modalAdocaoInstance = new bootstrap.Modal(document.getElementById('modalAdocao'));
+            }
+            modalAdocaoInstance.show();
+        }
+
+        // Processa o envio do formulário de adoção
+        function enviarInteresseAdocao(event) {
+            event.preventDefault();
+            const nomePet = document.getElementById('input-pet-nome').value;
+            const nomeAdotante = document.getElementById('adotante-nome').value;
+            const whats = document.getElementById('adotante-whats').value;
+
+            document.getElementById('form-adocao').classList.add('hidden');
+            const boxConfirmacao = document.getElementById('confirmacao-adocao');
+            boxConfirmacao.classList.remove('hidden');
+
+            document.getElementById('texto-confirmacao-adocao').innerHTML = `
+                Olá, <strong>${nomeAdotante}</strong>! Recebemos seu interesse em adotar <strong>${nomePet}</strong>.<br><br>
+                Nossa equipe da <strong>Pet Lar Birigui</strong> entrará em contato pelo WhatsApp <strong>${whats}</strong> hoje mesmo para agendar sua visita!
+            `;
+        }
+
+        // Abre modal de agendamento de serviços
+        function abrirModalAgendamento(nomeServico) {
+            document.getElementById('form-servico').classList.remove('hidden');
+            document.getElementById('confirmacao-servico').classList.add('hidden');
+            document.getElementById('form-servico').reset();
+            document.getElementById('servico-selecionado').value = nomeServico;
+
+            if (!modalServicoInstance) {
+                modalServicoInstance = new bootstrap.Modal(document.getElementById('modalServico'));
+            }
+            modalServicoInstance.show();
+        }
+
+        // Processa pré-agendamento de serviço
+        function enviarAgendamentoServico(event) {
+            event.preventDefault();
+            const servico = document.getElementById('servico-selecionado').value;
+            const tutor = document.getElementById('tutor-nome').value;
+            const pet = document.getElementById('pet-cliente-nome').value;
+            const whats = document.getElementById('tutor-whats').value;
+
+            document.getElementById('form-servico').classList.add('hidden');
+            document.getElementById('confirmacao-servico').classList.remove('hidden');
+            document.getElementById('texto-confirmacao-servico').innerHTML = `
+                Tudo certo, <strong>${tutor}</strong>! Reservamos o pedido de <strong>${servico}</strong> para o(a) <strong>${pet}</strong>.<br><br>
+                Confirmaremos o horário exato pelo WhatsApp <strong>${whats}</strong> em instantes.
+            `;
+        }
+
+        // Fecha menu mobile automaticamente ao clicar em algum link
+        document.querySelectorAll('#navbarPetLar .nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navbarCollapse = document.getElementById('navbarPetLar');
+                if (navbarCollapse.classList.contains('show')) {
+                    bootstrap.Collapse.getInstance(navbarCollapse)?.hide();
+                }
+            });
+        });
+
+        // Inicialização ao carregar a página
+        window.addEventListener('DOMContentLoaded', () => {
+            renderizarPets('todos');
+        });
+    </script>
+</body>
+</html>
